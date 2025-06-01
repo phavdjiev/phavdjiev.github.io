@@ -1,0 +1,19 @@
+name: Portfolio CI
+'on': # Run on every push and PR
+  - push
+  - pull_request
+jobs:
+  build_and_test: null
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Run HTML Linter
+      uses: github/super-linter@v4
+      env:
+        DEFAULT_BRANCH: main
+        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' # Super-Linter will auto-detect HTML, CSS, JS, Markdown, etc.
+    - name: Check for Broken Links
+      uses: lycheeverse/lychee-action@v2
+      with: null
+      # You can add configuration here if needed (e.g., ignore certain URLs) # By default it will fail the job if any broken links are found.
+      fail: true
